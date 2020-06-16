@@ -1,0 +1,14 @@
+{
+  "$schema": "https://deno.land/x/denon/schema.json",
+  "scripts": {
+    "build": {
+      "cmd": "deno bundle src/index.ts build/index.js",
+      "desc": "build index.ts into index.js"
+    }
+  },
+  "watcher": {
+    "exts": ["ts"],
+    "match": ["src/*"],
+    "skip": ["build/"]
+  }
+}
