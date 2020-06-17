@@ -1,7 +1,11 @@
-import { NumbersCollection } from './NumbersCollection.ts'
+interface Sortable {
+  length: number
+  compare(leftIndex: number): boolean
+  swap(leftIndex: number): void
+}
 
 export class Sorter {
-  constructor(public collection: NumbersCollection) {}
+  constructor(public collection: Sortable) {}
 
   sort(): void {
     const { length } = this.collection
