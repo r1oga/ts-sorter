@@ -107,27 +107,86 @@ let System, __instantiateAsync, __instantiate;
   };
 })();
 
-"use strict";
-class Sorter {
-  constructor(collection) {
-    this.collection = collection;
-  }
-  sort() {
-    const { length } = this.collection;
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length; j++) {
-        if (this.collection[j] > this.collection[j + 1]) {
-          //  swap
-          const leftHand = this.collection[j];
-          this.collection[j] = this.collection[j + 1];
-          this.collection[j + 1] = leftHand;
+System.register("NumbersCollection", [], function (exports_1, context_1) {
+  "use strict";
+  var NumbersCollection;
+  var __moduleName = context_1 && context_1.id;
+  return {
+    setters: [],
+    execute: function () {
+      NumbersCollection = class NumbersCollection {
+        constructor(data) {
+          this.data = data;
         }
-      }
-    }
-  }
-}
-const sorter = new Sorter([12, 3, -7, 1]);
-sorter.sort();
-console.log(sorter.collection);
+        get length() {
+          return this.data.length;
+        }
+        swap(leftIndex) {
+          const leftHand = this.data[leftIndex];
+          this.data[leftIndex] = this.data[leftIndex + 1];
+          this.data[leftIndex + 1] = leftHand;
+        }
+        compare(leftIndex) {
+          return this.data[leftIndex] > this.data[leftIndex + 1];
+        }
+      };
+      exports_1("NumbersCollection", NumbersCollection);
+    },
+  };
+});
+System.register("Sorter", [], function (exports_2, context_2) {
+  "use strict";
+  var Sorter;
+  var __moduleName = context_2 && context_2.id;
+  return {
+    setters: [],
+    execute: function () {
+      Sorter = class Sorter {
+        constructor(collection) {
+          this.collection = collection;
+        }
+        sort() {
+          const { length } = this.collection;
+          for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+              if (this.collection.compare(j)) {
+                this.collection.swap(j);
+              }
+            }
+          }
+        }
+      };
+      exports_2("Sorter", Sorter);
+    },
+  };
+});
+System.register(
+  "index",
+  ["NumbersCollection", "Sorter"],
+  function (exports_3, context_3) {
+    "use strict";
+    var NumbersCollection_ts_1, Sorter_ts_1, numberCollection, sorter;
+    var __moduleName = context_3 && context_3.id;
+    return {
+      setters: [
+        function (NumbersCollection_ts_1_1) {
+          NumbersCollection_ts_1 = NumbersCollection_ts_1_1;
+        },
+        function (Sorter_ts_1_1) {
+          Sorter_ts_1 = Sorter_ts_1_1;
+        },
+      ],
+      execute: function () {
+        numberCollection = new NumbersCollection_ts_1.NumbersCollection(
+          [-9, 3, -7, 1],
+        );
+        sorter = new Sorter_ts_1.Sorter(numberCollection);
+        console.log(sorter.collection);
+        sorter.sort();
+        console.log(sorter.collection);
+      },
+    };
+  },
+);
 
 __instantiate("index");
