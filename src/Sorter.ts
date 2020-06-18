@@ -1,10 +1,4 @@
-interface Sortable {
-  compare(leftIndex: number): boolean
-  swap(leftIndex: number): void
-  length: number
-}
-
-export abstract class Sorter implements Sortable {
+export abstract class Sorter {
   sort(): void {
     for (let i = 0; i < this.length; i++) {
       for (let j = 0; j < this.length; j++) {
