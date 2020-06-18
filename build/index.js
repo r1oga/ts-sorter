@@ -107,70 +107,115 @@ let System, __instantiateAsync, __instantiate;
   };
 })();
 
-System.register("NumbersCollection", [], function (exports_1, context_1) {
+System.register("Sorter", [], function (exports_1, context_1) {
   "use strict";
-  var NumbersCollection;
+  var Sorter;
   var __moduleName = context_1 && context_1.id;
   return {
     setters: [],
     execute: function () {
-      NumbersCollection = class NumbersCollection {
-        constructor(data) {
-          this.data = data;
-        }
-        get length() {
-          return this.data.length;
-        }
-        swap(leftIndex) {
-          const leftHand = this.data[leftIndex];
-          this.data[leftIndex] = this.data[leftIndex + 1];
-          this.data[leftIndex + 1] = leftHand;
-        }
-        compare(leftIndex) {
-          return this.data[leftIndex] > this.data[leftIndex + 1];
+      Sorter = class Sorter {
+        sort() {
+          for (let i = 0; i < this.length; i++) {
+            for (let j = 0; j < this.length; j++) {
+              if (this.compare(j)) {
+                this.swap(j);
+              }
+            }
+          }
         }
       };
-      exports_1("NumbersCollection", NumbersCollection);
+      exports_1("Sorter", Sorter);
     },
   };
 });
-System.register("CharactersCollection", [], function (exports_2, context_2) {
+System.register(
+  "NumbersCollection",
+  ["Sorter"],
+  function (exports_2, context_2) {
+    "use strict";
+    var Sorter_ts_1, NumbersCollection;
+    var __moduleName = context_2 && context_2.id;
+    return {
+      setters: [
+        function (Sorter_ts_1_1) {
+          Sorter_ts_1 = Sorter_ts_1_1;
+        },
+      ],
+      execute: function () {
+        NumbersCollection = class NumbersCollection extends Sorter_ts_1.Sorter {
+          constructor(data) {
+            super();
+            this.data = data;
+          }
+          get length() {
+            return this.data.length;
+          }
+          swap(leftIndex) {
+            const leftHand = this.data[leftIndex];
+            this.data[leftIndex] = this.data[leftIndex + 1];
+            this.data[leftIndex + 1] = leftHand;
+          }
+          compare(leftIndex) {
+            return this.data[leftIndex] > this.data[leftIndex + 1];
+          }
+        };
+        exports_2("NumbersCollection", NumbersCollection);
+      },
+    };
+  },
+);
+System.register(
+  "CharactersCollection",
+  ["Sorter"],
+  function (exports_3, context_3) {
+    "use strict";
+    var Sorter_ts_2, CharactersCollection;
+    var __moduleName = context_3 && context_3.id;
+    return {
+      setters: [
+        function (Sorter_ts_2_1) {
+          Sorter_ts_2 = Sorter_ts_2_1;
+        },
+      ],
+      execute: function () {
+        CharactersCollection = class CharactersCollection
+          extends Sorter_ts_2.Sorter {
+          constructor(data) {
+            super();
+            this.data = data;
+          }
+          get length() {
+            return this.data.length;
+          }
+          swap(leftIndex) {
+            const chars = this.data.split("");
+            const leftHand = chars[leftIndex];
+            chars[leftIndex] = chars[leftIndex + 1];
+            chars[leftIndex + 1] = leftHand;
+            this.data = chars.join("");
+          }
+          compare(leftIndex) {
+            const lowerCaseStr = this.data.toLowerCase();
+            return lowerCaseStr.charAt(leftIndex) >
+              lowerCaseStr.charAt(leftIndex + 1);
+          }
+        };
+        exports_3("CharactersCollection", CharactersCollection);
+      },
+    };
+  },
+);
+System.register("LinkedList", ["Sorter"], function (exports_4, context_4) {
   "use strict";
-  var CharactersCollection;
-  var __moduleName = context_2 && context_2.id;
+  var Sorter_ts_3, Node, LinkedList;
+  var __moduleName = context_4 && context_4.id;
   return {
-    setters: [],
-    execute: function () {
-      CharactersCollection = class CharactersCollection {
-        constructor(data) {
-          this.data = data;
-        }
-        get length() {
-          return this.data.length;
-        }
-        swap(leftIndex) {
-          const chars = this.data.split("");
-          const leftHand = chars[leftIndex];
-          chars[leftIndex] = chars[leftIndex + 1];
-          chars[leftIndex + 1] = leftHand;
-          this.data = chars.join("");
-        }
-        compare(leftIndex) {
-          const lowerCaseStr = this.data.toLowerCase();
-          return lowerCaseStr.charAt(leftIndex) >
-            lowerCaseStr.charAt(leftIndex + 1);
-        }
-      };
-      exports_2("CharactersCollection", CharactersCollection);
-    },
-  };
-});
-System.register("LinkedList", [], function (exports_3, context_3) {
-  "use strict";
-  var Node, LinkedList;
-  var __moduleName = context_3 && context_3.id;
-  return {
-    setters: [],
+    setters: [
+      function (Sorter_ts_3_1) {
+        Sorter_ts_3 = Sorter_ts_3_1;
+      },
+    ],
     execute: function () {
       Node = class Node {
         constructor(data) {
@@ -178,8 +223,9 @@ System.register("LinkedList", [], function (exports_3, context_3) {
           this.next = null;
         }
       };
-      LinkedList = class LinkedList {
+      LinkedList = class LinkedList extends Sorter_ts_3.Sorter {
         constructor() {
+          super(...arguments);
           this.head = null;
         }
         add(data) {
@@ -245,76 +291,44 @@ System.register("LinkedList", [], function (exports_3, context_3) {
           }
         }
       };
-      exports_3("LinkedList", LinkedList);
-    },
-  };
-});
-System.register("Sorter", [], function (exports_4, context_4) {
-  "use strict";
-  var Sorter;
-  var __moduleName = context_4 && context_4.id;
-  return {
-    setters: [],
-    execute: function () {
-      Sorter = class Sorter {
-        constructor(collection) {
-          this.collection = collection;
-        }
-        sort() {
-          const { length } = this.collection;
-          for (let i = 0; i < length; i++) {
-            for (let j = 0; j < length; j++) {
-              if (this.collection.compare(j)) {
-                this.collection.swap(j);
-              }
-            }
-          }
-        }
-      };
-      exports_4("Sorter", Sorter);
+      exports_4("LinkedList", LinkedList);
     },
   };
 });
 System.register(
   "index",
-  ["LinkedList", "Sorter"],
+  ["NumbersCollection", "CharactersCollection"],
   function (exports_5, context_5) {
     "use strict";
-    var LinkedList_ts_1, Sorter_ts_1, linkedList, sorterLl;
+    var NumbersCollection_ts_1,
+      CharactersCollection_ts_1,
+      numbersCollection,
+      charactersCollection;
     var __moduleName = context_5 && context_5.id;
     return {
       setters: [
-        function (LinkedList_ts_1_1) {
-          LinkedList_ts_1 = LinkedList_ts_1_1;
+        function (NumbersCollection_ts_1_1) {
+          NumbersCollection_ts_1 = NumbersCollection_ts_1_1;
         },
-        function (Sorter_ts_1_1) {
-          Sorter_ts_1 = Sorter_ts_1_1;
+        function (CharactersCollection_ts_1_1) {
+          CharactersCollection_ts_1 = CharactersCollection_ts_1_1;
         },
       ],
       execute: function () {
-        // const numbersCollection = new NumbersCollection([10, -9, 3, -7, 1])
-        // const sorterNum = new Sorter(numbersCollection)
-        // console.log('Test numbers collection sorting:')
-        // console.log(sorterNum.collection)
-        // sorterNum.sort()
-        // console.log(sorterNum.collection)
-        // console.log()
-        //
-        // console.log('Test characters collection sorting:')
-        // const charactersCollection = new CharactersCollection('testing')
-        // const sorterChar = new Sorter(charactersCollection)
-        // console.log(sorterChar.collection)
-        // sorterChar.sort()
-        // console.log(sorterChar.collection)
-        console.log("Test linked list sorting:");
-        linkedList = new LinkedList_ts_1.LinkedList();
-        linkedList.add(0);
-        linkedList.add(-10);
-        linkedList.add(30);
-        linkedList.add(5);
-        sorterLl = new Sorter_ts_1.Sorter(linkedList);
-        linkedList.print();
-        sorterLl.sort();
+        numbersCollection = new NumbersCollection_ts_1.NumbersCollection(
+          [10, -9, 3, -7, 1],
+        );
+        console.log("Test numbers collection sorting:");
+        console.log(numbersCollection.data);
+        numbersCollection.sort();
+        console.log(numbersCollection.data);
+        console.log();
+        console.log("Test characters collection sorting:");
+        charactersCollection = new CharactersCollection_ts_1
+          .CharactersCollection("testing");
+        console.log(charactersCollection.data);
+        charactersCollection.sort();
+        console.log(charactersCollection.data);
       },
     };
   },

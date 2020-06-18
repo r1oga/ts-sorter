@@ -1,21 +1,20 @@
 interface Sortable {
-  length: number
   compare(leftIndex: number): boolean
   swap(leftIndex: number): void
+  length: number
 }
 
-export class Sorter {
-  constructor(public collection: Sortable) {}
-
+export abstract class Sorter implements Sortable {
   sort(): void {
-    const { length } = this.collection
-
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length; j++) {
-        if (this.collection.compare(j)) {
-          this.collection.swap(j)
+    for (let i = 0; i < this.length; i++) {
+      for (let j = 0; j < this.length; j++) {
+        if (this.compare(j)) {
+          this.swap(j)
         }
       }
     }
   }
+  abstract compare(index: number): boolean
+  abstract swap(index: number): void
+  abstract length: number
 }
