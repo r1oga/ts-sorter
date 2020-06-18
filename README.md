@@ -1,6 +1,4 @@
-# Sorter
-
-Sort list of numbers, a string or a linked list with a [bubble sort](https://en.wikipedia.org/wiki/Bubble_sort) algorithm.
+# Football
 
 # Requirements
 
@@ -10,5 +8,5 @@ Sort list of numbers, a string or a linked list with a [bubble sort](https://en.
 # Getting started
 
 In two different terminals:  
-`denon -c build/denon.json start`  
 `denon -c src/denon.json build`
+`denon -c build/denon.json start`
