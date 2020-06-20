@@ -1,4 +1,5 @@
 import { Sorter } from './Sorter.ts'
+import { swapConstructor } from './swap.ts'
 
 export class CharactersCollection extends Sorter {
   constructor(public data: string) {
@@ -11,9 +12,7 @@ export class CharactersCollection extends Sorter {
 
   swap(leftIndex: number): void {
     const chars = this.data.split('')
-    const leftHand = chars[leftIndex]
-    chars[leftIndex] = chars[leftIndex + 1]
-    chars[leftIndex + 1] = leftHand
+    swapConstructor<string>(chars)(leftIndex)
     this.data = chars.join('')
   }
 

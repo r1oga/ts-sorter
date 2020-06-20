@@ -1,4 +1,5 @@
 import { Sorter } from './Sorter.ts'
+import { swapConstructor } from './swap.ts'
 
 export class NumbersCollection extends Sorter {
   constructor(public data: number[]) {
@@ -10,9 +11,7 @@ export class NumbersCollection extends Sorter {
   }
 
   swap(leftIndex: number): void {
-    const leftHand = this.data[leftIndex]
-    this.data[leftIndex] = this.data[leftIndex + 1]
-    this.data[leftIndex + 1] = leftHand
+    swapConstructor<number>(this.data)(leftIndex)
   }
 
   compare(leftIndex: number): boolean {

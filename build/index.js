@@ -129,17 +129,37 @@ System.register("Sorter", [], function (exports_1, context_1) {
     },
   };
 });
+System.register("swap", [], function (exports_2, context_2) {
+  "use strict";
+  var __moduleName = context_2 && context_2.id;
+  function swapConstructor(arr) {
+    return (leftIndex) => {
+      const leftHand = arr[leftIndex];
+      arr[leftIndex] = arr[leftIndex + 1];
+      arr[leftIndex + 1] = leftHand;
+    };
+  }
+  exports_2("swapConstructor", swapConstructor);
+  return {
+    setters: [],
+    execute: function () {
+    },
+  };
+});
 System.register(
   "NumbersCollection",
-  ["Sorter"],
-  function (exports_2, context_2) {
+  ["Sorter", "swap"],
+  function (exports_3, context_3) {
     "use strict";
-    var Sorter_ts_1, NumbersCollection;
-    var __moduleName = context_2 && context_2.id;
+    var Sorter_ts_1, swap_ts_1, NumbersCollection;
+    var __moduleName = context_3 && context_3.id;
     return {
       setters: [
         function (Sorter_ts_1_1) {
           Sorter_ts_1 = Sorter_ts_1_1;
+        },
+        function (swap_ts_1_1) {
+          swap_ts_1 = swap_ts_1_1;
         },
       ],
       execute: function () {
@@ -152,30 +172,31 @@ System.register(
             return this.data.length;
           }
           swap(leftIndex) {
-            const leftHand = this.data[leftIndex];
-            this.data[leftIndex] = this.data[leftIndex + 1];
-            this.data[leftIndex + 1] = leftHand;
+            swap_ts_1.swapConstructor(this.data)(leftIndex);
           }
           compare(leftIndex) {
             return this.data[leftIndex] > this.data[leftIndex + 1];
           }
         };
-        exports_2("NumbersCollection", NumbersCollection);
+        exports_3("NumbersCollection", NumbersCollection);
       },
     };
   },
 );
 System.register(
   "CharactersCollection",
-  ["Sorter"],
-  function (exports_3, context_3) {
+  ["Sorter", "swap"],
+  function (exports_4, context_4) {
     "use strict";
-    var Sorter_ts_2, CharactersCollection;
-    var __moduleName = context_3 && context_3.id;
+    var Sorter_ts_2, swap_ts_2, CharactersCollection;
+    var __moduleName = context_4 && context_4.id;
     return {
       setters: [
         function (Sorter_ts_2_1) {
           Sorter_ts_2 = Sorter_ts_2_1;
+        },
+        function (swap_ts_2_1) {
+          swap_ts_2 = swap_ts_2_1;
         },
       ],
       execute: function () {
@@ -190,9 +211,7 @@ System.register(
           }
           swap(leftIndex) {
             const chars = this.data.split("");
-            const leftHand = chars[leftIndex];
-            chars[leftIndex] = chars[leftIndex + 1];
-            chars[leftIndex + 1] = leftHand;
+            swap_ts_2.swapConstructor(chars)(leftIndex);
             this.data = chars.join("");
           }
           compare(leftIndex) {
@@ -201,15 +220,15 @@ System.register(
               lowerCaseStr.charAt(leftIndex + 1);
           }
         };
-        exports_3("CharactersCollection", CharactersCollection);
+        exports_4("CharactersCollection", CharactersCollection);
       },
     };
   },
 );
-System.register("LinkedList", ["Sorter"], function (exports_4, context_4) {
+System.register("LinkedList", ["Sorter"], function (exports_5, context_5) {
   "use strict";
   var Sorter_ts_3, Node, LinkedList;
-  var __moduleName = context_4 && context_4.id;
+  var __moduleName = context_5 && context_5.id;
   return {
     setters: [
       function (Sorter_ts_3_1) {
@@ -291,20 +310,20 @@ System.register("LinkedList", ["Sorter"], function (exports_4, context_4) {
           }
         }
       };
-      exports_4("LinkedList", LinkedList);
+      exports_5("LinkedList", LinkedList);
     },
   };
 });
 System.register(
   "index",
   ["NumbersCollection", "CharactersCollection"],
-  function (exports_5, context_5) {
+  function (exports_6, context_6) {
     "use strict";
     var NumbersCollection_ts_1,
       CharactersCollection_ts_1,
       numbersCollection,
       charactersCollection;
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_6 && context_6.id;
     return {
       setters: [
         function (NumbersCollection_ts_1_1) {
