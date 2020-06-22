@@ -1,4 +1,5 @@
-# Football
+# Sorter
+Sort different types of collection with a [bubble sort algorithm](https://en.wikipedia.org/wiki/Bubble_sort).
 
 # Requirements
 
